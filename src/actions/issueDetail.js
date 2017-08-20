@@ -174,7 +174,6 @@ export function updateComment(issueDetail, comment) {
 export function deleteComment(issueDetail, comment) {
   return async dispatch => {
     const prevComments = issueDetail.comments;
-    console.log(prevComments);
 
     try {
       const deleteComments = await deleteCommentRequest(issueDetail, comment);

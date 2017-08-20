@@ -1,29 +1,29 @@
-import React, {Component, PropTypes} from 'react'
-import CSSModules from 'react-css-modules'
+import React, { Component, PropTypes } from "react";
+import CSSModules from "react-css-modules";
 
-import IssueCommentListItem from './IssueCommentListItem'
+import IssueCommentListItem from "./IssueCommentListItem";
 
-import styles from './IssueCommentList.scss'
+import styles from "./IssueCommentList.scss";
 
 class IssueCommentList extends Component {
   render() {
-    const { comments } = this.props
+    const { comments } = this.props;
 
     return (
       <div>
-        {
-          comments.map((comment) => {
-            return (<IssueCommentListItem
+        {comments.map(comment => {
+          return (
+            <IssueCommentListItem
               key={comment.id}
               comment={comment}
-              onClickSave={this.props.onClickSave}
-              onClickDelete={this.props.onClickDelete}
-            />)
-          })
-        }
+              onClickEditSave={this.props.onClickEditSave.bind(this)}
+              onClickDelete={this.props.onClickDelete.bind(this, comment)}
+            />
+          );
+        })}
       </div>
-    )
+    );
   }
 }
 
-export default CSSModules(IssueCommentList, styles)
+export default CSSModules(IssueCommentList, styles);

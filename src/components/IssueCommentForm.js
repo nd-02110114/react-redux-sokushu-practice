@@ -1,41 +1,41 @@
-import React, {Component, PropTypes} from 'react'
-import CSSModules from 'react-css-modules'
+import React, { Component, PropTypes } from "react";
+import CSSModules from "react-css-modules";
 
-import Comment from '../lib/records/Comment'
-import { STATE } from '../lib/records/Issue'
+import Comment from "../lib/records/Comment";
+import { STATE } from "../lib/records/Issue";
 
-import styles from './IssueCommentForm.scss'
+import styles from "./IssueCommentForm.scss";
 
 class IssueCommentForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      userName: '',
-      content: '',
-    }
+      userName: "",
+      content: ""
+    };
   }
 
   onClickComment() {
-    const comment = Comment.fromJS(this.state)
-    this.props.onClickComment(comment)
+    const comment = Comment.fromJS(this.state);
+    console.log(comment);
+    this.props.onClickComment(comment);
+    this.setState({ userName: "", content: "" });
   }
 
   onClickChangeStatus(status) {
-    this.props.onClickChangeStatus(
-      this.props.issue.set('status', status)
-    )
+    this.props.onClickChangeStatus(this.props.issue.set("status", status));
   }
 
   onChangeUserName(e) {
-    this.setState({userName: e.target.value})
+    this.setState({ userName: e.target.value });
   }
 
   onChangeContent(e) {
-    this.setState({content: e.target.value})
+    this.setState({ content: e.target.value });
   }
 
   render() {
-    const { issue } = this.props
+    const { issue } = this.props;
     return (
       <div styleName="base">
         <div styleName="header">
@@ -57,25 +57,25 @@ class IssueCommentForm extends Component {
           </div>
           <textarea
             styleName="comment-text"
-            value={this.state.editingContent}
+            value={this.state.content}
             onChange={this.onChangeContent.bind(this)}
             disabled={issue.status === STATE.OPEN ? false : true}
           />
         </div>
         <div styleName="footer">
-          { issue.status === STATE.OPEN ? (
-            <div
-              styleName="close-issue-button"
-              onClick={this.onClickChangeStatus.bind(this, STATE.CLOSE)}
-            >
-              Close Issue
-            </div>) : (<div
-              styleName="close-issue-button"
-              onClick={this.onClickChangeStatus.bind(this, STATE.OPEN)}
-            >
-              Re-open Issue
-            </div>)
-          }
+          {issue.status === STATE.OPEN
+            ? <div
+                styleName="close-issue-button"
+                onClick={this.onClickChangeStatus.bind(this, STATE.CLOSE)}
+              >
+                Close Issue
+              </div>
+            : <div
+                styleName="close-issue-button"
+                onClick={this.onClickChangeStatus.bind(this, STATE.OPEN)}
+              >
+                Re-open Issue
+              </div>}
           <div
             styleName="comment-button"
             onClick={this.onClickComment.bind(this)}
@@ -84,8 +84,8 @@ class IssueCommentForm extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default CSSModules(IssueCommentForm, styles)
+export default CSSModules(IssueCommentForm, styles);

@@ -108,7 +108,6 @@ export function findInitialData() {
 }
 
 export function findIssues(params, options = {}) {
-  // console.log("A");
   return async dispatch => {
     const skipLoading = !!options.skipLoading;
 

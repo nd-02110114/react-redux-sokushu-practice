@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Loader from 'react-loader'
+import React, { Component, PropTypes } from "react";
+import { Link } from "react-router";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import Loader from "react-loader";
 
-import IssueDetailHeader from '../components/IssueDetailHeader'
-import IssueCommentList from '../components/IssueCommentList'
-import IssueCommentForm from '../components/IssueCommentForm'
-import IssueDescription from '../components/IssueDescription'
+import IssueDetailHeader from "../components/IssueDetailHeader";
+import IssueCommentList from "../components/IssueCommentList";
+import IssueCommentForm from "../components/IssueCommentForm";
+import IssueDescription from "../components/IssueDescription";
 
 import {
   findIssueDetail,
@@ -17,40 +17,46 @@ import {
   changeTitleEditing,
   updateIssue,
   setShowUsersModal,
-  setShowLabelsModal,
-} from '../actions/issueDetail'
+  setShowLabelsModal
+} from "../actions/issueDetail";
 
-import styles from './IssueDetailContainer.scss'
+import styles from "./IssueDetailContainer.scss";
 
 class IssueDetailContainer extends Component {
   componentDidMount() {
-    this.init()
+    this.init();
   }
 
   init() {
-    this.props.findIssueDetail(this.props.params.id)
+    this.props.findIssueDetail(this.props.params.id);
+  }
+
+  onClickEditSave(comment) {
+    // TODO: implement update
+    this.props.updateComment(this.props.issueDetail, comment);
   }
 
   onClickCommentSave(comment) {
     // TODO: implement update
-    this.props.addComment(this.props.issueDetail, comment)
+    this.props.addComment(this.props.issueDetail, comment);
   }
 
   onClickCommentDelete(comment) {
     // TODO: implement
+    this.props.deleteComment(this.props.issueDetail, comment);
   }
 
   onClickTitleEdit() {
-    this.props.changeTitleEditing(true)
+    this.props.changeTitleEditing(true);
   }
 
   onClickTitleSave(issue) {
-    this.props.changeTitleEditing(false)
-    this.props.updateIssue(issue)
+    this.props.changeTitleEditing(false);
+    this.props.updateIssue(issue);
   }
 
   onClickChangeStatus(issue) {
-    this.props.updateIssue(issue)
+    this.props.updateIssue(issue);
   }
 
   onAssigneeSelected(issue) {
@@ -70,7 +76,7 @@ class IssueDetailContainer extends Component {
   }
 
   render() {
-    const { issueDetail, issueDetailManager, issueManager } = this.props
+    const { issueDetail, issueDetailManager, issueManager } = this.props;
     return (
       <div className={styles.base}>
         <Link to="/">List Page</Link>
@@ -88,12 +94,10 @@ class IssueDetailContainer extends Component {
             onChangeShowLabelsModal={this.onChangeShowLabelsModal.bind(this)}
           />
           <div className={styles.main}>
-            <IssueDescription
-              issue={issueDetail}
-            />
+            <IssueDescription issue={issueDetail} />
             <IssueCommentList
               comments={issueDetail.comments}
-              onClickSave={this.onClickCommentSave.bind(this)}
+              onClickEditSave={this.onClickEditSave.bind(this)}
               onClickDelete={this.onClickCommentDelete.bind(this)}
             />
             <IssueCommentForm
@@ -104,36 +108,39 @@ class IssueDetailContainer extends Component {
           </div>
         </Loader>
       </div>
-    )
+    );
   }
 }
 
 IssueDetailContainer.contextTypes = {
-  router: PropTypes.object.isRequired,
-}
+  router: PropTypes.object.isRequired
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
     issueDetail: state.issue.issueDetail,
     issueDetailManager: state.issue.issueDetailManager,
-    issueManager: state.issue.issueManager,
-  }
-}
+    issueManager: state.issue.issueManager
+  };
+};
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    findIssueDetail,
-    addComment,
-    updateComment,
-    deleteComment,
-    changeTitleEditing,
-    updateIssue,
-    setShowUsersModal,
-    setShowLabelsModal,
-  }, dispatch)
-}
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      findIssueDetail,
+      addComment,
+      updateComment,
+      deleteComment,
+      changeTitleEditing,
+      updateIssue,
+      setShowUsersModal,
+      setShowLabelsModal
+    },
+    dispatch
+  );
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IssueDetailContainer, styles)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  IssueDetailContainer,
+  styles
+);

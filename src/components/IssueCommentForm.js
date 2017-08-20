@@ -1,29 +1,28 @@
-import React, { Component, PropTypes } from "react";
-import CSSModules from "react-css-modules";
+import React, { Component, PropTypes } from 'react';
+import CSSModules from 'react-css-modules';
 
-import Comment from "../lib/records/Comment";
-import { STATE } from "../lib/records/Issue";
+import Comment from '../lib/records/Comment';
+import { STATE } from '../lib/records/Issue';
 
-import styles from "./IssueCommentForm.scss";
+import styles from './IssueCommentForm.scss';
 
 class IssueCommentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "",
-      content: ""
+      userName: '',
+      content: ''
     };
   }
 
   onClickComment() {
     const comment = Comment.fromJS(this.state);
-    console.log(comment);
     this.props.onClickComment(comment);
-    this.setState({ userName: "", content: "" });
+    this.setState({ userName: '', content: '' });
   }
 
   onClickChangeStatus(status) {
-    this.props.onClickChangeStatus(this.props.issue.set("status", status));
+    this.props.onClickChangeStatus(this.props.issue.set('status', status));
   }
 
   onChangeUserName(e) {

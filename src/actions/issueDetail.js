@@ -1,17 +1,17 @@
-import $ from "jquery";
-import { Record, List } from "immutable";
+import $ from 'jquery';
+import { Record, List } from 'immutable';
 
-import END_POINTS from "../lib/constants/EndPoints";
-import Issue from "../lib/records/Issue";
-import Comment from "../lib/records/Comment";
+import END_POINTS from '../lib/constants/EndPoints';
+import Issue from '../lib/records/Issue';
+import Comment from '../lib/records/Comment';
 
 const Actions = {
-  SET_ISSUE_DETAIL: "issue_detail/set_issue_detail",
-  SET_COMMENTS: "issue_detail/set_comments",
-  SET_TITLE_EDITING: "issue_detail/set_title_editing",
-  SET_LOADING: "issue_detail/set_loading",
-  SET_SHOW_USERS_MODAL: "issue_detail/set_show_users_modal",
-  SET_SHOW_LABELS_MODAL: "issue_detail/set_show_labels_modal"
+  SET_ISSUE_DETAIL: 'issue_detail/set_issue_detail',
+  SET_COMMENTS: 'issue_detail/set_comments',
+  SET_TITLE_EDITING: 'issue_detail/set_title_editing',
+  SET_LOADING: 'issue_detail/set_loading',
+  SET_SHOW_USERS_MODAL: 'issue_detail/set_show_users_modal',
+  SET_SHOW_LABELS_MODAL: 'issue_detail/set_show_labels_modal'
 };
 
 export default Actions;
@@ -23,8 +23,8 @@ function initIssueDetail(issueDetail) {
 async function findIssueDetailRequest(issueId) {
   const response = await $.ajax({
     url: `${END_POINTS.ISSUES}/${issueId}`,
-    method: "GET",
-    dataType: "json",
+    method: 'GET',
+    dataType: 'json',
     timeout: 100000
   });
   return initIssueDetail(response);
@@ -43,7 +43,7 @@ async function updateIssueRequest(issue) {
 
   const response = await $.ajax({
     url: `${END_POINTS.ISSUES}/${issue.id}`,
-    method: "PATCH",
+    method: 'PATCH',
     data,
     timeout: 100000
   });
@@ -63,7 +63,7 @@ function buildCommentRequestData(comment) {
 async function postCommentRequest(issue, comment) {
   const response = await $.ajax({
     url: `${END_POINTS.ISSUES}/${issue.id}/comments`,
-    method: "POST",
+    method: 'POST',
     data: buildCommentRequestData(comment),
     timeout: 100000
   });
@@ -74,7 +74,7 @@ async function postCommentRequest(issue, comment) {
 async function putCommentRequest(issue, comment) {
   const response = await $.ajax({
     url: `${END_POINTS.ISSUES}/${issue.id}/comments/${comment.id}`,
-    method: "PUT",
+    method: 'PUT',
     data: buildCommentRequestData(comment),
     timeout: 100000
   });
@@ -86,7 +86,7 @@ async function deleteCommentRequest(issue, comment) {
   // TODO: implement
   const response = await $.ajax({
     url: `${END_POINTS.ISSUES}/${issue.id}/comments/${comment.id}`,
-    method: "DELETE",
+    method: 'DELETE',
     data: buildCommentRequestData(comment),
     timeout: 100000
   });
@@ -129,7 +129,7 @@ export function findIssueDetail(issueId) {
       const issueDetail = await findIssueDetailRequest(issueId);
       dispatch(setIssueDetail(issueDetail));
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
     dispatch(setLoading(false));
   };
@@ -143,7 +143,7 @@ export function addComment(issueDetail, comment) {
       const newComment = await postCommentRequest(issueDetail, comment);
       dispatch(setComments(prevComments.push(newComment)));
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
       dispatch(setComments(prevComments)); // fallback to previous state
     }
   };
@@ -165,7 +165,7 @@ export function updateComment(issueDetail, comment) {
       );
       dispatch(setComments(nextComments));
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
       dispatch(setComments(prevComments)); // fallback to previous state
     }
   };
@@ -184,7 +184,7 @@ export function deleteComment(issueDetail, comment) {
       );
       dispatch(setComments(nextComments));
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
       dispatch(setComments(prevComments));
     }
   };
@@ -202,7 +202,7 @@ export function updateIssue(issueDetail) {
     try {
       await updateIssueRequest(issueDetail);
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   };
 }

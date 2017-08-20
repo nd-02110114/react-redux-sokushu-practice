@@ -11,12 +11,18 @@ class IssueCommentForm extends Component {
     super(props);
     this.state = {
       userName: '',
-      content: ''
+      content: '',
+      error: false
     };
+    this.validateBlank = this.validateBlank.bind(this);
   }
 
   onClickComment() {
     const comment = Comment.fromJS(this.state);
+    if (!comment.isValiduserName() || !comment.isValidContent()) {
+      return;
+    }
+
     this.props.onClickComment(comment);
     this.setState({ userName: '', content: '' });
   }
@@ -27,10 +33,20 @@ class IssueCommentForm extends Component {
 
   onChangeUserName(e) {
     this.setState({ userName: e.target.value });
+    this.validateBlank();
   }
 
   onChangeContent(e) {
     this.setState({ content: e.target.value });
+    this.validateBlank();
+  }
+
+  validateBlank() {
+    if (this.state.userName == '' || this.state.content == '') {
+      this.setState({ error: true });
+    } else {
+      this.setState({ error: false });
+    }
   }
 
   render() {
@@ -62,6 +78,9 @@ class IssueCommentForm extends Component {
           />
         </div>
         <div styleName="footer">
+          <div styleName="error-msg">
+            {this.state.error ? 'Cannot Blank!' : ''}
+          </div>
           {issue.status === STATE.OPEN
             ? <div
                 styleName="close-issue-button"

@@ -18,4 +18,12 @@ export default class Comment extends _Comment {
       updated: comment.updated
     });
   }
+
+  isValiduserName() {
+    return this.userName.length > 0;
+  }
+
+  isValidContent() {
+    return this.content.length > 0;
+  }
 }

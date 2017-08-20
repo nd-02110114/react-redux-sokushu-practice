@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from "react";
-import { Link } from "react-router";
-import CSSModules from "react-css-modules";
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import CSSModules from 'react-css-modules';
 
-import Modal from "./SelectModal";
+import Modal from './SelectModal';
 
-import styles from "./IssueListHeader.scss";
+import styles from './IssueListHeader.scss';
 
 class IssueListHeader extends Component {
   constructor(props) {

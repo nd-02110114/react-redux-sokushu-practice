@@ -206,11 +206,3 @@ export function updateIssue(issueDetail) {
     }
   };
 }
-
-export function setShowUsersModal(show) {
-  // TODO: implement
-}
-
-export function setShowLabelsModal(show) {
-  // TODO: implement
-}

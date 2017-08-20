@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from "react";
-import { Link } from "react-router";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import Loader from "react-loader";
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Loader from 'react-loader';
 
-import IssueDetailHeader from "../components/IssueDetailHeader";
-import IssueCommentList from "../components/IssueCommentList";
-import IssueCommentForm from "../components/IssueCommentForm";
-import IssueDescription from "../components/IssueDescription";
+import IssueDetailHeader from '../components/IssueDetailHeader';
+import IssueCommentList from '../components/IssueCommentList';
+import IssueCommentForm from '../components/IssueCommentForm';
+import IssueDescription from '../components/IssueDescription';
 
 import {
   findIssueDetail,
@@ -15,12 +15,10 @@ import {
   updateComment,
   deleteComment,
   changeTitleEditing,
-  updateIssue,
-  setShowUsersModal,
-  setShowLabelsModal
-} from "../actions/issueDetail";
+  updateIssue
+} from '../actions/issueDetail';
 
-import styles from "./IssueDetailContainer.scss";
+import styles from './IssueDetailContainer.scss';
 
 class IssueDetailContainer extends Component {
   componentDidMount() {
@@ -61,18 +59,12 @@ class IssueDetailContainer extends Component {
 
   onAssigneeSelected(issue) {
     // TODO: implement
+    this.props.updateIssue(issue);
   }
 
   onLabelsSelected(issue) {
     // TODO: implement
-  }
-
-  onChangeShowUsersModal(show) {
-    // TODO: implement
-  }
-
-  onChangeShowLabelsModal(show) {
-    // TODO: implement
+    this.props.updateIssue(issue);
   }
 
   render() {
@@ -90,8 +82,6 @@ class IssueDetailContainer extends Component {
             onClickTitleSave={this.onClickTitleSave.bind(this)}
             onAssigneeSelected={this.onAssigneeSelected.bind(this)}
             onLabelsSelected={this.onLabelsSelected.bind(this)}
-            onChangeShowUsersModal={this.onChangeShowUsersModal.bind(this)}
-            onChangeShowLabelsModal={this.onChangeShowLabelsModal.bind(this)}
           />
           <div className={styles.main}>
             <IssueDescription issue={issueDetail} />
@@ -132,9 +122,7 @@ const mapDispatchToProps = dispatch => {
       updateComment,
       deleteComment,
       changeTitleEditing,
-      updateIssue,
-      setShowUsersModal,
-      setShowLabelsModal
+      updateIssue
     },
     dispatch
   );
